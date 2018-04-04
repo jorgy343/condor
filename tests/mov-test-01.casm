@@ -1,0 +1,18 @@
+; All registers should display a bit pattern ...10101
+
+mova 0x5555_5555,r0
+mova 0x5555_5555,r1
+mova 0x5555_5555,r2
+mova 0x5555_5555,r3
+mova 0x5555_5555,r4
+mova 0x5555_5555,r5
+mova 0x5555_5555,r6
+mova 0x5555_5555,r7
+mova 0x5555_5555,r8
+mova 0x5555_5555,r9
+mova 0x5555_5555,r10
+mova 0x5555_5555,r11
+mova 0x5555_5555,r12
+mova 0x5555_5555,r13
+mova 0x5555_5555,r14
+mova 0x5555_5555,r15
