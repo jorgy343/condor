@@ -1,0 +1,39 @@
+movl 32,r1
+j r1
+
+; The bad lands.
+
+.org 32
+
+trial1:
+movl 18,r2
+movl 3,r3
+sub r2,r3,r14
+jg trial2
+
+fail:
+j fail ; Fail Jail
+
+trial2:
+movl 9,r2
+movl 13,r3
+sub r2,r3,r14
+jl trial3
+j fail
+
+trial3:
+movl 5,r2
+movl 5,r3
+sub r2,r3,r14
+je trial4
+j fail
+
+trial4:
+movl 5,r2
+movl 6,r3
+sub r2,r3,r14
+jne pass
+j fail
+
+pass:
+j pass ; Pass Palace
