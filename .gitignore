@@ -1,0 +1,12 @@
+.gradle
+/build/
+!gradle-wrapper.jar
+.gradletasknamecache
+*.class
+*.jar
+hs_err_pid*
+.idea/
+*.iws
+/out/
+.idea_modules/
+
