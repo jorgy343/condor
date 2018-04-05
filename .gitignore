@@ -1,5 +1,5 @@
 .gradle
-/build/
+build/
 !gradle-wrapper.jar
 .gradletasknamecache
 *.class
@@ -7,6 +7,6 @@
 hs_err_pid*
 .idea/
 *.iws
-/out/
+out/
 .idea_modules/
 
