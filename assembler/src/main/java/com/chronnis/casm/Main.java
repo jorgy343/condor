@@ -22,7 +22,7 @@ public class Main
         try
         {
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classloader.getResourceAsStream("prog.casm");
+            InputStream is = classloader.getResourceAsStream("tests/jump-test-01.casm");
             CharStream inputStream = CharStreams.fromStream(is);
             CasmLexer asmLexer = new CasmLexer(inputStream);
             CommonTokenStream commonTokenStream = new CommonTokenStream(asmLexer);

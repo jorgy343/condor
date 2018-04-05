@@ -21,8 +21,14 @@ public class Immediate implements Node
         this.val = val;
     }
 
-    private void parseVal(String val) {
-        String prefix = val.substring(0, 2);
+    private void parseVal(String val)
+    {
+        String prefix = "";
+
+        if (val.length() > 2){
+            prefix = val.substring(0, 2);
+        }
+
         if("0b".equals(prefix)) {
             this.val = Integer.parseInt(val.substring(2), 2);
         } else if("0x".equals(prefix)){
