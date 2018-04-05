@@ -1,7 +1,7 @@
 package com.chronnis.casm;
 
-import com.chronnis.casm.antlr.asm.AsmLexer;
-import com.chronnis.casm.antlr.asm.AsmParser;
+import com.chronnis.casm.antlr.AsmLexer;
+import com.chronnis.casm.antlr.AsmParser;
 import com.chronnis.casm.visitors.LabelListener;
 import com.chronnis.casm.visitors.TestListener;
 import org.antlr.v4.runtime.CharStream;

@@ -1,7 +1,7 @@
 package com.chronnis.casm.visitors;
 
-import com.chronnis.casm.antlr.asm.AsmListener;
-import com.chronnis.casm.antlr.asm.AsmParser;
+import com.chronnis.casm.antlr.AsmListener;
+import com.chronnis.casm.antlr.AsmParser;
 import com.chronnis.casm.ast.Label;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

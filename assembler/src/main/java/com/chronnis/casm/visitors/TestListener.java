@@ -1,7 +1,7 @@
 package com.chronnis.casm.visitors;
 
-import com.chronnis.casm.antlr.asm.AsmBaseListener;
-import com.chronnis.casm.antlr.asm.AsmParser;
+import com.chronnis.casm.antlr.AsmBaseListener;
+import com.chronnis.casm.antlr.AsmParser;
 import com.chronnis.casm.ast.*;
 import com.chronnis.casm.inst.*;
 
