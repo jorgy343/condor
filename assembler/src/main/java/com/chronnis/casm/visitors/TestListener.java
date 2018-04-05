@@ -1,9 +1,12 @@
 package com.chronnis.casm.visitors;
 
-import com.chronnis.casm.antlr.AsmBaseListener;
-import com.chronnis.casm.antlr.AsmParser;
+import com.chronnis.casm.antlr.CasmParser;
+import com.chronnis.casm.antlr.CasmBaseListener;
 import com.chronnis.casm.ast.*;
-import com.chronnis.casm.inst.*;
+import com.chronnis.casm.inst.Instruction;
+import com.chronnis.casm.inst.InstructionMagic;
+import com.chronnis.casm.inst.MOVH;
+import com.chronnis.casm.inst.MOVL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +15,7 @@ import java.util.Map;
 /**
  * Created by Dylan on 4/4/2018.
  */
-public class TestListener extends AsmBaseListener
+public class TestListener extends CasmBaseListener
 {
     private List<Instruction> instructionList = new ArrayList<>();
     private Map<String, Label> labelMap;
@@ -27,12 +30,12 @@ public class TestListener extends AsmBaseListener
     }
 
     @Override
-    public void enterStmt(AsmParser.StmtContext ctx) {
+    public void enterStmt(CasmParser.StmtContext ctx) {
         line++;
     }
 
     @Override
-    public void enterOp(AsmParser.OpContext ctx) {
+    public void enterOp(CasmParser.OpContext ctx) {
         this.currentOp = OpCode.fromString(ctx.KEYWORD().toString());
         try
         {
@@ -47,7 +50,7 @@ public class TestListener extends AsmBaseListener
     }
 
     @Override
-    public void exitOp(AsmParser.OpContext ctx) {
+    public void exitOp(CasmParser.OpContext ctx) {
         this.instructionList.add(this.currentInstruction);
         this.currentInstruction = null;
         this.currentOp = null;
@@ -55,7 +58,7 @@ public class TestListener extends AsmBaseListener
     }
 
     @Override
-    public void enterExprlist(AsmParser.ExprlistContext ctx) {
+    public void enterExprlist(CasmParser.ExprlistContext ctx) {
         switch (this.currentOp) {
             case MOVL:
             case MOVH:
@@ -95,11 +98,11 @@ public class TestListener extends AsmBaseListener
     }
 
     @Override
-    public void enterExpr(AsmParser.ExprContext ctx) {
+    public void enterExpr(CasmParser.ExprContext ctx) {
         this.currentInstruction.argNum(argNum, exprContextToNode(ctx), line);
     }
 
-    private Node exprContextToNode(AsmParser.ExprContext ctx) {
+    private Node exprContextToNode(CasmParser.ExprContext ctx) {
         if(null != ctx.label()) {
             return labelMap.get(ctx.label().getText());
         }
@@ -116,7 +119,7 @@ public class TestListener extends AsmBaseListener
     }
 
     @Override
-    public void exitExpr(AsmParser.ExprContext ctx) {
+    public void exitExpr(CasmParser.ExprContext ctx) {
         this.argNum++;
     }
 

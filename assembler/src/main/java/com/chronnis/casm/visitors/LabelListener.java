@@ -1,7 +1,7 @@
 package com.chronnis.casm.visitors;
 
-import com.chronnis.casm.antlr.AsmListener;
-import com.chronnis.casm.antlr.AsmParser;
+import com.chronnis.casm.antlr.CasmParser;
+import com.chronnis.casm.antlr.CasmListener;
 import com.chronnis.casm.ast.Label;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by Dylan on 4/3/2018.
  */
-public class LabelListener implements AsmListener
+public class LabelListener implements CasmListener
 {
     private Map<String, Label> labelMap = new HashMap<>();
     private int pos = 0;
@@ -21,44 +21,44 @@ public class LabelListener implements AsmListener
     private boolean inOp = false;
 
     @Override
-    public void enterProg(AsmParser.ProgContext ctx)
+    public void enterProg(CasmParser.ProgContext ctx)
     {
 
     }
 
     @Override
-    public void exitProg(AsmParser.ProgContext ctx)
+    public void exitProg(CasmParser.ProgContext ctx)
     {
 
     }
 
     @Override
-    public void enterStmt(AsmParser.StmtContext ctx)
+    public void enterStmt(CasmParser.StmtContext ctx)
     {
         line += 1;
     }
 
     @Override
-    public void exitStmt(AsmParser.StmtContext ctx)
+    public void exitStmt(CasmParser.StmtContext ctx)
     {
 
     }
 
     @Override
-    public void enterOp(AsmParser.OpContext ctx)
+    public void enterOp(CasmParser.OpContext ctx)
     {
         this.inOp = true;
     }
 
     @Override
-    public void exitOp(AsmParser.OpContext ctx)
+    public void exitOp(CasmParser.OpContext ctx)
     {
         this.pos += 1;
         this.inOp = false;
     }
 
     @Override
-    public void enterLabel(AsmParser.LabelContext ctx)
+    public void enterLabel(CasmParser.LabelContext ctx)
     {
         if(!inOp) {
             labelMap.put(ctx.LABEL().toString(), new Label(ctx.LABEL().toString(), this.pos, this.line));
@@ -68,91 +68,91 @@ public class LabelListener implements AsmListener
     }
 
     @Override
-    public void exitLabel(AsmParser.LabelContext ctx)
+    public void exitLabel(CasmParser.LabelContext ctx)
     {
 
     }
 
     @Override
-    public void enterDirective(AsmParser.DirectiveContext ctx)
+    public void enterDirective(CasmParser.DirectiveContext ctx)
     {
 
     }
 
     @Override
-    public void exitDirective(AsmParser.DirectiveContext ctx)
+    public void exitDirective(CasmParser.DirectiveContext ctx)
     {
         this.pos += 1;
     }
 
     @Override
-    public void enterComment(AsmParser.CommentContext ctx)
+    public void enterComment(CasmParser.CommentContext ctx)
     {
 
     }
 
     @Override
-    public void exitComment(AsmParser.CommentContext ctx)
+    public void exitComment(CasmParser.CommentContext ctx)
     {
 
     }
 
     @Override
-    public void enterExprlist(AsmParser.ExprlistContext ctx)
+    public void enterExprlist(CasmParser.ExprlistContext ctx)
     {
 
     }
 
     @Override
-    public void exitExprlist(AsmParser.ExprlistContext ctx)
+    public void exitExprlist(CasmParser.ExprlistContext ctx)
     {
 
     }
 
     @Override
-    public void enterExpr(AsmParser.ExprContext ctx)
+    public void enterExpr(CasmParser.ExprContext ctx)
     {
 
     }
 
     @Override
-    public void exitExpr(AsmParser.ExprContext ctx)
+    public void exitExpr(CasmParser.ExprContext ctx)
     {
 
     }
 
     @Override
-    public void enterNumber(AsmParser.NumberContext ctx)
+    public void enterNumber(CasmParser.NumberContext ctx)
     {
 
     }
 
     @Override
-    public void exitNumber(AsmParser.NumberContext ctx)
+    public void exitNumber(CasmParser.NumberContext ctx)
     {
 
     }
 
     @Override
-    public void enterRegref(AsmParser.RegrefContext ctx)
+    public void enterRegref(CasmParser.RegrefContext ctx)
     {
 
     }
 
     @Override
-    public void exitRegref(AsmParser.RegrefContext ctx)
+    public void exitRegref(CasmParser.RegrefContext ctx)
     {
 
     }
 
     @Override
-    public void enterReg(AsmParser.RegContext ctx)
+    public void enterReg(CasmParser.RegContext ctx)
     {
 
     }
 
     @Override
-    public void exitReg(AsmParser.RegContext ctx)
+    public void exitReg(CasmParser.RegContext ctx)
     {
 
     }

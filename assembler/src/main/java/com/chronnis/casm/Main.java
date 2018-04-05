@@ -1,7 +1,8 @@
 package com.chronnis.casm;
 
-import com.chronnis.casm.antlr.AsmLexer;
-import com.chronnis.casm.antlr.AsmParser;
+
+import com.chronnis.casm.antlr.CasmLexer;
+import com.chronnis.casm.antlr.CasmParser;
 import com.chronnis.casm.visitors.LabelListener;
 import com.chronnis.casm.visitors.TestListener;
 import org.antlr.v4.runtime.CharStream;
@@ -21,12 +22,12 @@ public class Main
         try
         {
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            InputStream is = classloader.getResourceAsStream("prog.asm");
+            InputStream is = classloader.getResourceAsStream("prog.casm");
             CharStream inputStream = CharStreams.fromStream(is);
-            AsmLexer asmLexer = new AsmLexer(inputStream);
+            CasmLexer asmLexer = new CasmLexer(inputStream);
             CommonTokenStream commonTokenStream = new CommonTokenStream(asmLexer);
-            AsmParser asmParser = new AsmParser(commonTokenStream);
-            AsmParser.ProgContext tree = asmParser.prog();
+            CasmParser casmParser = new CasmParser(commonTokenStream);
+            CasmParser.ProgContext tree = casmParser.prog();
             ParseTreeWalker walker = new ParseTreeWalker();
             LabelListener listener = new LabelListener();
             walker.walk(listener, tree);

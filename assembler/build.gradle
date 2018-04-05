@@ -1,13 +1,18 @@
-group 'com.chronnis.bip32'
+group 'com.chronnis.casm'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
 apply plugin: 'antlr'
+apply plugin: 'idea'
 
 sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+}
+
+generateGrammarSource {
+    arguments += ["-visitor"]
 }
 
 dependencies {

@@ -1,21 +1,21 @@
 package com.chronnis.casm.visitors;
 
-import com.chronnis.casm.antlr.AsmBaseVisitor;
-import com.chronnis.casm.antlr.AsmParser;
+import com.chronnis.casm.antlr.CasmBaseVisitor;
+import com.chronnis.casm.antlr.CasmParser;
 import com.chronnis.casm.ast.*;
 
 /**
  * Created by Dylan on 4/3/2018.
  */
-public class AstVisitor extends AsmBaseVisitor<Node>
+public class AstVisitor extends CasmBaseVisitor<Node>
 {
     private int instCount = 0;
 
     @Override
-    public Node visitProg(AsmParser.ProgContext ctx) {
+    public Node visitProg(CasmParser.ProgContext ctx) {
         System.out.println("visitProg");
         ProgramNode topNode = new ProgramNode();
-        for(AsmParser.StmtContext c: ctx.stmt()) {
+        for(CasmParser.StmtContext c: ctx.stmt()) {
             Node stmt = visitStmt(c);
             if(null != stmt)
             {
@@ -27,10 +27,10 @@ public class AstVisitor extends AsmBaseVisitor<Node>
     }
 
     @Override
-    public Node visitStmt(AsmParser.StmtContext ctx) {
+    public Node visitStmt(CasmParser.StmtContext ctx) {
         System.out.println("visitStmt");
-        AsmParser.OpContext op = ctx.op();
-        AsmParser.LabelContext label = ctx.label();
+        CasmParser.OpContext op = ctx.op();
+        CasmParser.LabelContext label = ctx.label();
         if(null != op) {
             return visitOp(op);
         }
@@ -41,7 +41,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
     }
 
     @Override
-    public Node visitOp(AsmParser.OpContext ctx) {
+    public Node visitOp(CasmParser.OpContext ctx) {
         System.out.println("visitOp");
         Node op;
         if(null != ctx.exprlist()) {
@@ -53,7 +53,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
         return op;
     }
 
-    private Node createTriOp(AsmParser.ExprlistContext ctx) {
+    private Node createTriOp(CasmParser.ExprlistContext ctx) {
         System.out.println("createTriOp");
         TriOp op = new TriOp();
         op.setA(visitExpr(ctx.expr(0))); //reg
@@ -62,7 +62,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
         return op;
     }
 
-    private Node createBinOp(AsmParser.ExprlistContext ctx) {
+    private Node createBinOp(CasmParser.ExprlistContext ctx) {
         System.out.println("createBinOp");
         BinOp op = new BinOp();
 
@@ -71,7 +71,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
         return op;
     }
 
-    private Node createUnOp(AsmParser.ExprlistContext ctx) {
+    private Node createUnOp(CasmParser.ExprlistContext ctx) {
         System.out.println("createUnOp");
         UnOp op = new UnOp();
         op.setD(visitExpr(ctx.expr(0))); // Reg or Label
@@ -79,7 +79,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
     }
 
     @Override
-    public Node visitExpr(AsmParser.ExprContext ctx) {
+    public Node visitExpr(CasmParser.ExprContext ctx) {
         System.out.println("visitExpr");
         if(null != ctx.label()) {
             return visitLabel(ctx.label());
@@ -98,7 +98,7 @@ public class AstVisitor extends AsmBaseVisitor<Node>
     }
 
     @Override
-    public Node visitExprlist(AsmParser.ExprlistContext ctx) {
+    public Node visitExprlist(CasmParser.ExprlistContext ctx) {
         System.out.println("visitExprlist");
         int numOps = ctx.getChildCount();
         if(numOps == 3) {
@@ -114,25 +114,25 @@ public class AstVisitor extends AsmBaseVisitor<Node>
     }
 
     @Override
-    public Node visitLabel(AsmParser.LabelContext ctx)
+    public Node visitLabel(CasmParser.LabelContext ctx)
     {
         return new Label(ctx.LABEL().toString(), 0, 0);
     }
 
     @Override
-    public Node visitNumber(AsmParser.NumberContext ctx)
+    public Node visitNumber(CasmParser.NumberContext ctx)
     {
         return new Immediate(ctx.NUMBER().toString());
     }
 
     @Override
-    public Node visitRegref(AsmParser.RegrefContext ctx)
+    public Node visitRegref(CasmParser.RegrefContext ctx)
     {
         return new Register(ctx.REGREF().toString(), true);
     }
 
     @Override
-    public Node visitReg(AsmParser.RegContext ctx)
+    public Node visitReg(CasmParser.RegContext ctx)
     {
         return new Register(ctx.REG().toString());
     }
