@@ -30,7 +30,6 @@ class Reserved(Parser):
         self.tag = tag
 
     def __call__(self, tokens, pos):
-        print('reserved call')
         if pos < len(tokens) and \
            tokens[pos][0] == self.value and \
            tokens[pos][1] is self.tag:
@@ -45,11 +44,12 @@ class Tag(Parser):
 
     def __call__(self, tokens, pos):
         if pos < len(tokens) and tokens[pos][1] is self.tag:
-            print('[{}] tag good: {} / {}'.format(pos, tokens[pos][1], self.tag))
+            # print('[{}] tag good: {} / {}'.format(pos, tokens[pos][1], self.tag))
             return Result(tokens[pos][0], pos + 1)
         else:
             if pos < len(tokens):
-                print('[{}] tag bad: {} / {}'.format(pos, tokens[pos][1], self.tag))
+                pass
+                # print('[{}] tag bad: {} / {}'.format(pos, tokens[pos][1], self.tag))
             return None
 
 
@@ -136,14 +136,12 @@ class Phrase(Parser):
         self.parser = parser
 
     def __call__(self, tokens, pos):
-        print('[{}] phrase call'.format(pos))
-        print(tokens[pos])
         result = self.parser(tokens, pos)
         if result and result.pos == len(tokens):
-            print('[{}] phrase good'.format(pos))
+            # print('[{}] phrase good'.format(pos))
             return result
         else:
-            print('[{}] phrase bad'.format(pos))
+            # print('[{}] phrase bad'.format(pos))
             return None
 
 

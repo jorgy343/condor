@@ -1,81 +1,52 @@
-from lex import *
-from parse.Combinator import *
-from parse.Oper import *
+from parse.Instructions import *
+from parse.ParseTree import Program
+from parse.ParseTree import parser
 
 
-def keyword(kw):
-    return Reserved(kw, KEY)
+class Compiler:
 
+    def comp(self, program):
 
-idtag = Tag(ID) ^ (lambda i: Identifier(i))
+        self.resolve_labels(program)
+        self.expand_meta_ops(program)
+        self.compile_program(program)
+        print(program)
 
-num = Tag(INT) ^ (lambda i: Immediate(i))
+        return program
 
-reg = Tag(REG) ^ (lambda i: Register(i))
+    def resolve_labels(self, prog):
+        pos = 0
+        for op in prog.op_list:
+            print('{} - {}'.format(pos, op.__class__.__name__))
+            lbl = op.get_label()
+            if lbl:
+                print('lbl: {} -- {}'.format(lbl, pos))
+                prog.labels[lbl.name].pos = pos
+                print('lbl: {} -- {}'.format(lbl, pos))
+            pos += len(op)
 
-ref = Tag(REF) ^ (lambda i: RegRef(i))
+        print(prog.labels)
 
-key = Tag(KEY) ^ (lambda i: OpCode(i))
+    def expand_meta_ops(self, prog):
+        op_list = prog.op_list
+        new_list = self.expand_op(op_list)
+        print(len(op_list))
+        print(len(new_list))
+        prog.op_list = new_list
 
-lbl = Tag(LABEL) ^ (lambda i: Label(i))
+    def expand_op(self, op_list):
+        l = []
+        for op in op_list:
+            if isinstance(op, Instruction):
+                l.append(op)
+            elif isinstance(op, MetaInstruction):
+                l.extend(self.expand_op(op.get()))
+            else:
+                print('ERR: Non Instruction in Op List')
+        return l
 
-dirtag = Tag(DIR) ^ (lambda i: Directive(i))
-
-
-def sdop_val(i):
-    return SDOp(i[0][0], i[0][1], i[1])
-
-
-def abdop_val(i):
-    return ABDOp(i[0][0][0], i[0][0][1], i[0][1], i[1])
-
-
-def dop_val(i):
-    return DOp(i[0], i[1])
-
-
-def noarg_val(i):
-    return NoArgOp(i)
-
-
-def three_arg():
-    print('three')
-    return (key + reg + reg + reg) ^ abdop_val
-
-
-def two_arg():
-    print('two')
-    return (key + (reg | ref | num | idtag) + (reg | ref)) ^ sdop_val
-
-
-def one_arg():
-    print('one')
-    return (key + (reg | idtag)) ^ dop_val
-
-
-def no_arg():
-    print('noarg')
-    return key ^ noarg_val
-
-
-def parser():
-    return Phrase(stmt_list())
-
-
-def op():
-    print('op')
-    return Lazy(three_arg) | Lazy(two_arg) | Lazy(one_arg) | Lazy(no_arg)
-
-
-def directive():
-    return dirtag + num
-
-
-def stmt():
-    print('stmt')
-    return Opt(lbl) + (op() | directive())
-
-
-def stmt_list():
-    return Rep(stmt())
-
+    def compile_program(self, program):
+        op_list = program.op_list
+        for op in op_list:
+            op.compile_instruction()
+        pass

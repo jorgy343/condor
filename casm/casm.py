@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from lex import *
-from parse import parser
-from compile import Compiler
+from parse import parser, Compiler
 
 keywords = '|'.join([
     'movl',
@@ -28,7 +27,6 @@ keywords = '|'.join([
     'arsh',
     'rsh'
 ])
-print(keywords)
 
 token_list = [
     (r';[^\n]*', None),
@@ -45,24 +43,23 @@ token_list = [
 
 def casm_parse(tokens):
     ast = parser()(tokens, 0)
-    return ast
+    return ast.value
 
 
 def main():
     tokens = []
     with open("test2.casm", 'r') as source:
-        for line in source:
-            print(line)
-            tokens.extend(lex(line, token_list))
-    for t in tokens:
-        print(t)
-    result = casm_parse(tokens)
-    for item in result.value:
-        print(item)
-
-    program = Compiler().comp(result)
-
+        # print(line)
+        tokens.extend(lex(source.read(), token_list))
+    # for t in tokens:
+    #     print(t)
+    program = casm_parse(tokens)
     print(program)
+    # print(type(program))
+
+    program = Compiler().comp(program)
+    #
+    # print(program)
 
 
 if __name__ == '__main__':
