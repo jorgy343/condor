@@ -1,0 +1,37 @@
+movl 32,r1 ; 00010020
+j r1 ; 44000001
+
+; The bad lands.
+
+trial1:
+movl 18,r2 ; 00020012
+movl 3,r3 ; 00030003
+sub r2,r3,r14 ; 2c1e0032
+jg trial2 ; 000e000b 001e0000 4440000e
+
+fail:
+j fail ; Fail Jail 000e0008 001e0000 4400000e
+
+trial2:
+movl 9,r2 ; 00020009
+movl 13,r3 ; 0003000D
+sub r2,r3,r14 ; 2c1e0032
+jl trial3 ; 000e0014 001e0000 4430000e
+j fail ; 000e0008 001e0000 4400000e
+
+trial3:
+movl 5,r2 ; 00020005
+movl 5,r3 ; 00030005
+sub r2,r3,r14 ; 2c1e0032
+je trial4 ; 000e001d 001e0000 4410000e
+j fail ; 000e0008 001e0000 4400000e
+
+trial4:
+movl 5,r2 ; 00020005
+movl 6,r3 ; 00030006
+sub r2,r3,r14 ; 2c1e0032
+jne pass ; 000e0026 001e0000 4420000e
+j fail ; 000e0008 001e0000 4400000e
+
+pass:
+j pass ; Pass Palace 000e0026 001e0000 4400000e
