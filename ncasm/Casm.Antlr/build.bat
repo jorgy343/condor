@@ -1,0 +1,1 @@
+java -jar antlr-4.7.1-complete.jar -listener -visitor -package Casm.Antlr -Dlanguage=CSharp Casm.g4
