@@ -1,0 +1,26 @@
+{
+    "name": "casm",
+    "displayName": "Casm",
+    "description": "casm language support",
+    "version": "0.0.1",
+    "publisher": "jorgy343",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "categories": [
+        "Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "casm",
+            "aliases": ["casm"],
+            "extensions": [".casm"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "casm",
+            "scopeName": "source.casm",
+            "path": "./syntaxes/casm.tmLanguage.json"
+        }]
+    }
+}
