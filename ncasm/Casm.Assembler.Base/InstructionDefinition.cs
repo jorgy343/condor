@@ -11,7 +11,7 @@ namespace Casm.Assembler.Base
             _behaviors = behaviors;
         }
 
-        public uint CreateMachineCode(params Operand[] operands)
+        public virtual uint CreateMachineCode(params Operand[] operands)
         {
             var machineCode = 0u;
 

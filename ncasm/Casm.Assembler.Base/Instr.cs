@@ -1,8 +1,8 @@
 ﻿namespace Casm.Assembler.Base
 {
-    public class Instr
+    public class Instr : Node
     {
-        public Instr(InstructionDefinition instructionDefinition, params Operand[] operands)
+        public Instr(uint position, InstructionDefinition instructionDefinition, params Operand[] operands) : base(position)
         {
             InstructionDefinition = instructionDefinition;
             Operands = operands;

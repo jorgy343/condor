@@ -31,14 +31,14 @@ namespace Casm.Assembler.Base
                 labelMap[label.Name] = label.Position;
             }
 
-            foreach (var immediateInstruction in tree.Nodes.OfType<ImmediateInstruction>())
+            foreach (var instruction in tree.Nodes.OfType<Instr>())
             {
-                var labelName = immediateInstruction.ImmediateOperand.LabelName;
-
-                if (labelName != null)
+                foreach (var immediateOperand in instruction.Operands.OfType<ImmediateOperand>())
                 {
-                    var labelPosition = labelMap[labelName];
-                    immediateInstruction.ImmediateOperand.Value = labelPosition;
+                    if (immediateOperand.LabelName != null)
+                    {
+                        immediateOperand.Value = labelMap[immediateOperand.LabelName];
+                    }
                 }
             }
 

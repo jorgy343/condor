@@ -1,4 +1,6 @@
-﻿using Casm.Assembler.Base;
+﻿using System.Collections.Generic;
+using Casm.Assembler.Base;
+using System.Linq;
 using static System.Console;
 
 namespace Casm.Assembler
@@ -10,6 +12,7 @@ namespace Casm.Assembler
             const string input = @"
                 movl 117,r3
                 mov r3,r5
+                test: j test
                 ";
 
             var compiler = new Compiler();
@@ -24,8 +27,8 @@ namespace Casm.Assembler
                         WriteLine($"{label.Position}: Label: {label.Name}");
                         break;
 
-                    case Instruction instruction:
-                        WriteLine($"{instruction.Position}: Instruction: 0x{instruction.ToMachineCode():x8}");
+                    case Instr instruction:
+                        WriteLine($"{instruction.Position}: Instruction: 0x{instruction.CreateMachineCode():x8}");
                         break;
                 }
             }
