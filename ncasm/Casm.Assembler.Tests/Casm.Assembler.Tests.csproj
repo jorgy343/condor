@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Casm.Assembler.Base\Casm.Assembler.Base.csproj" />
+    <ProjectReference Include="..\Casm.Assembler\Casm.Assembler.csproj" />
   </ItemGroup>
 
 </Project>

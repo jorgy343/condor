@@ -1,4 +1,4 @@
-﻿using Casm.Assembler.Base;
+﻿using Casm.Assembler;
 using Xunit;
 // ReSharper disable ConvertToConstant.Local
 // ReSharper disable ArgumentsStyleLiteral
