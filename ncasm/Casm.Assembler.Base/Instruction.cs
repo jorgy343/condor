@@ -1,18 +1,19 @@
 ﻿namespace Casm.Assembler.Base
 {
-    public abstract class Instruction : Node
+    public class Instruction : Node
     {
-        protected Instruction(uint position, uint functionSelect, uint dBusSelect, uint opcode) : base(position)
+        public Instruction(uint position, InstructionDefinition instructionDefinition, params Operand[] operands) : base(position)
         {
-            FunctionSelect = functionSelect;
-            DBusSelect = dBusSelect;
-            Opcode = opcode;
+            InstructionDefinition = instructionDefinition;
+            Operands = operands;
         }
 
-        public uint FunctionSelect { get; }
-        public uint DBusSelect { get; }
-        public uint Opcode { get; }
+        public InstructionDefinition InstructionDefinition { get; }
+        public Operand[] Operands { get; }
 
-        public abstract uint ToMachineCode();
+        public uint CreateMachineCode()
+        {
+            return InstructionDefinition.CreateMachineCode(Operands);
+        }
     }
 }

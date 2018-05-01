@@ -67,7 +67,7 @@ namespace Casm.Assembler.Base
             {
                 foreach (var instructionDefinition in instructionDefinitions)
                 {
-                    _tree.AddNodes(new Instr(_currentBytePosition, instructionDefinition, operands.ToArray()));
+                    _tree.AddNodes(new Instruction(_currentBytePosition, instructionDefinition, operands.ToArray()));
                     _currentBytePosition += 4;
                 }
 

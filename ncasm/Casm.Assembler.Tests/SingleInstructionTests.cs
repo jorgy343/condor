@@ -38,7 +38,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 11, immediate: 0x15a9u), instruction.CreateMachineCode());
         }
@@ -51,7 +51,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 11, immediate: 0x5942u), instruction.CreateMachineCode());
         }
@@ -64,7 +64,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b000, 0b001, 0b000_010, registerD: 11, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -77,7 +77,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b000, 0b010, 0b000_011, registerD: 11, registerB: 7, registerA: 0), instruction.CreateMachineCode());
         }
@@ -90,7 +90,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b000, 0b001, 0b000_100, registerD: 0, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -103,7 +103,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_000, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -116,7 +116,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_001, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -129,7 +129,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_010, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -142,7 +142,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_011, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -155,7 +155,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_100, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -168,7 +168,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_101, registerD: 11, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -181,7 +181,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_110, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -194,7 +194,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_111, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -207,7 +207,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_000, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -220,7 +220,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_001, registerD: 11, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -233,7 +233,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_010, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -246,7 +246,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_011, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -259,7 +259,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_100, registerD: 11, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -272,7 +272,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_101, registerD: 0, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -285,7 +285,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b001_110, registerD: 0, registerB: 7, registerA: 3), instruction.CreateMachineCode());
         }
@@ -298,7 +298,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b010, 0b001, 0b000_000, registerD: 0, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -311,7 +311,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b010, 0b001, 0b000_001, registerD: 0, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -324,7 +324,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b010, 0b001, 0b000_010, registerD: 0, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -337,7 +337,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b010, 0b001, 0b000_011, registerD: 0, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }
@@ -350,7 +350,7 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction = (Instr)result.Nodes[0];
+            var instruction = (Instruction)result.Nodes[0];
 
             Assert.Equal(BuildMachineCode(0b010, 0b001, 0b000_100, registerD: 0, registerB: 0, registerA: 3), instruction.CreateMachineCode());
         }

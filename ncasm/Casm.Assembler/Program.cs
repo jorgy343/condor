@@ -27,7 +27,7 @@ namespace Casm.Assembler
                         WriteLine($"{label.Position}: Label: {label.Name}");
                         break;
 
-                    case Instr instruction:
+                    case Instruction instruction:
                         WriteLine($"{instruction.Position}: Instruction: 0x{instruction.CreateMachineCode():x8}");
                         break;
                 }

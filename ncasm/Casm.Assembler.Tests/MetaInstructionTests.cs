@@ -53,9 +53,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[0];
-            var instruction2 = (Instr)result.Nodes[1];
-            var instruction3 = (Instr)result.Nodes[2];
+            var instruction1 = (Instruction)result.Nodes[0];
+            var instruction2 = (Instruction)result.Nodes[1];
+            var instruction3 = (Instruction)result.Nodes[2];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_001, registerD: 15, registerB: 14, registerA: 15), instruction2.CreateMachineCode());
@@ -69,9 +69,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[0];
-            var instruction2 = (Instr)result.Nodes[1];
-            var instruction3 = (Instr)result.Nodes[2];
+            var instruction1 = (Instruction)result.Nodes[0];
+            var instruction2 = (Instruction)result.Nodes[1];
+            var instruction3 = (Instruction)result.Nodes[2];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b010, 0b000_011, registerD: 3, registerB: 15, registerA: 0), instruction2.CreateMachineCode());
@@ -89,9 +89,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[2];
-            var instruction2 = (Instr)result.Nodes[3];
-            var instruction3 = (Instr)result.Nodes[4];
+            var instruction1 = (Instruction)result.Nodes[2];
+            var instruction2 = (Instruction)result.Nodes[3];
+            var instruction3 = (Instruction)result.Nodes[4];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4u), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0u), instruction2.CreateMachineCode());
@@ -109,9 +109,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[2];
-            var instruction2 = (Instr)result.Nodes[3];
-            var instruction3 = (Instr)result.Nodes[4];
+            var instruction1 = (Instruction)result.Nodes[2];
+            var instruction2 = (Instruction)result.Nodes[3];
+            var instruction3 = (Instruction)result.Nodes[4];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4u), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0u), instruction2.CreateMachineCode());
@@ -129,9 +129,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[2];
-            var instruction2 = (Instr)result.Nodes[3];
-            var instruction3 = (Instr)result.Nodes[4];
+            var instruction1 = (Instruction)result.Nodes[2];
+            var instruction2 = (Instruction)result.Nodes[3];
+            var instruction3 = (Instruction)result.Nodes[4];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4u), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0u), instruction2.CreateMachineCode());
@@ -149,9 +149,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[2];
-            var instruction2 = (Instr)result.Nodes[3];
-            var instruction3 = (Instr)result.Nodes[4];
+            var instruction1 = (Instruction)result.Nodes[2];
+            var instruction2 = (Instruction)result.Nodes[3];
+            var instruction3 = (Instruction)result.Nodes[4];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4u), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0u), instruction2.CreateMachineCode());
@@ -169,9 +169,9 @@ namespace Casm.Assembler.Tests
             var compiler = new Compiler();
             var result = compiler.Compile(input);
 
-            var instruction1 = (Instr)result.Nodes[2];
-            var instruction2 = (Instr)result.Nodes[3];
-            var instruction3 = (Instr)result.Nodes[4];
+            var instruction1 = (Instruction)result.Nodes[2];
+            var instruction2 = (Instruction)result.Nodes[3];
+            var instruction3 = (Instruction)result.Nodes[4];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4u), instruction1.CreateMachineCode());
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0u), instruction2.CreateMachineCode());

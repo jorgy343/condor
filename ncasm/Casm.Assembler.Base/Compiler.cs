@@ -31,7 +31,7 @@ namespace Casm.Assembler.Base
                 labelMap[label.Name] = label.Position;
             }
 
-            foreach (var instruction in tree.Nodes.OfType<Instr>())
+            foreach (var instruction in tree.Nodes.OfType<Instruction>())
             {
                 foreach (var immediateOperand in instruction.Operands.OfType<ImmediateOperand>())
                 {
