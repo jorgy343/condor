@@ -82,7 +82,7 @@ namespace Casm.Assembler
             switch (directive.ToLowerInvariant())
             {
                 case "@org":
-                    _tree.AddNodes(new Directive(_currentBytePosition));
+                    _tree.AddNodes(new Directive(_currentBytePosition, "org"));
                     _currentBytePosition = uint.Parse(context.expressionList().expression(0).NUMBER().GetText());
 
                     break;
