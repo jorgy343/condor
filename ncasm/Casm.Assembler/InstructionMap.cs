@@ -1,17 +1,21 @@
-﻿using Casm.Assembler.Behaviors;
+﻿using System;
+using Casm.Assembler.Behaviors;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Casm.Assembler
 {
     public static class InstructionMap
     {
         public static readonly Dictionary<InstructionKey, IEnumerable<InstructionDefinition>> InstructionDefinitions = new Dictionary<InstructionKey, IEnumerable<InstructionDefinition>>();
+        public static readonly Dictionary<(uint functionSelect, uint dBusSelect, uint opcode), InstructionDefinition> ReversedInstructionDefinitions = new Dictionary<(uint functionSelect, uint dBusSelect, uint opcode), InstructionDefinition>();
 
         static InstructionMap()
         {
             InstructionDefinitions[new InstructionKey("movl", OperandType.Immediate, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "movl",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_000),
@@ -22,6 +26,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("movh", OperandType.Immediate, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "movh",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_001),
@@ -32,6 +37,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("mov", OperandType.Register, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "mov",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b001),
                     new OpcodeBehavior(0b000_010),
@@ -42,6 +48,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("ldr", OperandType.RegisterReference, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "ldr",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b010),
                     new OpcodeBehavior(0b000_011),
@@ -52,6 +59,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("str", OperandType.Register, OperandType.RegisterReference)] = new[]
             {
                 new InstructionDefinition(
+                    "str",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b001),
                     new OpcodeBehavior(0b000_100),
@@ -62,6 +70,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("cmp", OperandType.Register, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "cmp",
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(0b001_101),
@@ -72,6 +81,7 @@ namespace Casm.Assembler
             InstructionDefinitions[new InstructionKey("test", OperandType.Register, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "test",
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(0b001_110),
@@ -93,74 +103,116 @@ namespace Casm.Assembler
             CreateThreeOperandAluInstruction("rsh", 0b001_011);
             CreateThreeOperandAluInstruction("arsh", 0b001_100);
 
-            CreateRegisterJumpInstruction("j", 0b000_000);
-            CreateRegisterJumpInstruction("je", 0b000_001);
-            CreateRegisterJumpInstruction("jne", 0b000_010);
-            CreateRegisterJumpInstruction("jl", 0b000_011);
-            CreateRegisterJumpInstruction("jg", 0b000_100);
+            CreateJumpInstruction("j", 0b000_000);
+            CreateJumpInstruction("je", 0b000_001);
+            CreateJumpInstruction("jne", 0b000_010);
+            CreateJumpInstruction("jl", 0b000_011);
+            CreateJumpInstruction("jg", 0b000_100);
 
-            CreateRegisterJumpInstructionLabel("j", 0b000_000);
-            CreateRegisterJumpInstructionLabel("je", 0b000_001);
-            CreateRegisterJumpInstructionLabel("jne", 0b000_010);
-            CreateRegisterJumpInstructionLabel("jl", 0b000_011);
-            CreateRegisterJumpInstructionLabel("jg", 0b000_100);
+            CreateJumpInstructionLabel("j", 0b000_000);
+            CreateJumpInstructionLabel("je", 0b000_001);
+            CreateJumpInstructionLabel("jne", 0b000_010);
+            CreateJumpInstructionLabel("jl", 0b000_011);
+            CreateJumpInstructionLabel("jg", 0b000_100);
 
             InstructionDefinitions[new InstructionKey("push", OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "movl",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_000),
-                    new ImmediateConstBehavior(4),
-                    new RegisterDConstIndexBehavior(14)),
+                    new ImmediateConstBehavior(0, 4),
+                    new RegisterDConstIndexBehavior(1, 14)),
 
                 new InstructionDefinition(
+                    "movh",
+                    new FunctionSelectBehavior(0b000),
+                    new DBusSelectBehavior(0b000),
+                    new OpcodeBehavior(0b000_001),
+                    new ImmediateConstBehavior(0, 0),
+                    new RegisterDConstIndexBehavior(1, 14)),
+
+                new InstructionDefinition(
+                    "sub",
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(0b000_001),
-                    new RegisterAConstIndexBehavior(15),
-                    new RegisterBConstIndexBehavior(14),
-                    new RegisterDConstIndexBehavior(15)),
+                    new RegisterAConstIndexBehavior(0, 15),
+                    new RegisterBConstIndexBehavior(1, 14),
+                    new RegisterDConstIndexBehavior(2, 15)),
 
                 new InstructionDefinition(
+                    "str",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b001),
                     new OpcodeBehavior(0b000_100),
                     new RegisterABehavior(0),
-                    new RegisterBConstIndexBehavior(15))
+                    new RegisterBConstIndexBehavior(1, 15))
             };
 
             InstructionDefinitions[new InstructionKey("pop", OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    "movl",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_000),
-                    new ImmediateConstBehavior(4),
-                    new RegisterDConstIndexBehavior(14)),
+                    new ImmediateConstBehavior(0, 4),
+                    new RegisterDConstIndexBehavior(1, 14)),
 
                 new InstructionDefinition(
+                    "movh",
+                    new FunctionSelectBehavior(0b000),
+                    new DBusSelectBehavior(0b000),
+                    new OpcodeBehavior(0b000_001),
+                    new ImmediateConstBehavior(0, 0),
+                    new RegisterDConstIndexBehavior(1, 14)),
+
+                new InstructionDefinition(
+                    "ldr",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b010),
                     new OpcodeBehavior(0b000_011),
-                    new RegisterBConstIndexBehavior(15),
+                    new RegisterBConstIndexBehavior(1, 15),
                     new RegisterDBehavior(0)),
 
                 new InstructionDefinition(
+                    "add",
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(0b000_000),
-                    new RegisterAConstIndexBehavior(15),
-                    new RegisterBConstIndexBehavior(14),
-                    new RegisterDConstIndexBehavior(15)),
+                    new RegisterAConstIndexBehavior(0, 15),
+                    new RegisterBConstIndexBehavior(1, 14),
+                    new RegisterDConstIndexBehavior(2, 15)),
             };
+
+            CreateReversedLookup();
+        }
+
+        private static void CreateReversedLookup()
+        {
+            foreach (var instructionDefinitionGroup in InstructionDefinitions.Values.Where(x => x.Count() == 1))
+            {
+                foreach (var instructionDefinition in instructionDefinitionGroup)
+                {
+                    var functionSelect = instructionDefinition.Behaviors.OfType<FunctionSelectBehavior>().Single().FunctionSelect;
+                    var dBusSelect = instructionDefinition.Behaviors.OfType<DBusSelectBehavior>().Single().DBusSelect;
+                    var opcode = instructionDefinition.Behaviors.OfType<OpcodeBehavior>().Single().Opcode;
+
+                    ReversedInstructionDefinitions[(functionSelect, dBusSelect, opcode)] = instructionDefinition;
+                }
+            }
         }
 
         private static void CreateTwoOperandAluInstruction(string name, uint opcode)
         {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+
             InstructionDefinitions[new InstructionKey(name, OperandType.Register, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    name,
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(opcode),
@@ -171,9 +223,12 @@ namespace Casm.Assembler
 
         private static void CreateThreeOperandAluInstruction(string name, uint opcode)
         {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+
             InstructionDefinitions[new InstructionKey(name, OperandType.Register, OperandType.Register, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    name,
                     new FunctionSelectBehavior(0b001),
                     new DBusSelectBehavior(0b011),
                     new OpcodeBehavior(opcode),
@@ -183,11 +238,14 @@ namespace Casm.Assembler
             };
         }
 
-        private static void CreateRegisterJumpInstruction(string name, uint opcode)
+        private static void CreateJumpInstruction(string name, uint opcode)
         {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+
             InstructionDefinitions[new InstructionKey(name, OperandType.Register)] = new[]
             {
                 new InstructionDefinition(
+                    name,
                     new FunctionSelectBehavior(0b010),
                     new DBusSelectBehavior(0b001),
                     new OpcodeBehavior(opcode),
@@ -195,27 +253,32 @@ namespace Casm.Assembler
             };
         }
 
-        private static void CreateRegisterJumpInstructionLabel(string name, uint opcode)
+        private static void CreateJumpInstructionLabel(string name, uint opcode)
         {
+            if (name == null) throw new ArgumentNullException(nameof(name));
+
             InstructionDefinitions[new InstructionKey(name, OperandType.Label)] = new[]
             {
                 new InstructionDefinition(
+                    "movl",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_000),
                     new RegisterDConstIndexLabelBehavior(0, 14, ImmediateType.Low)),
 
                 new InstructionDefinition(
+                    "movh",
                     new FunctionSelectBehavior(0b000),
                     new DBusSelectBehavior(0b000),
                     new OpcodeBehavior(0b000_001),
                     new RegisterDConstIndexLabelBehavior(0, 14, ImmediateType.High)),
 
                 new InstructionDefinition(
+                    name,
                     new FunctionSelectBehavior(0b010),
                     new DBusSelectBehavior(0b001),
                     new OpcodeBehavior(opcode),
-                    new RegisterAConstIndexBehavior(14))
+                    new RegisterAConstIndexBehavior(0, 14))
             };
         }
     }

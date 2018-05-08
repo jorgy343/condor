@@ -56,10 +56,12 @@ namespace Casm.Assembler.Tests
             var instruction1 = (Instruction)result.Nodes[0];
             var instruction2 = (Instruction)result.Nodes[1];
             var instruction3 = (Instruction)result.Nodes[2];
+            var instruction4 = (Instruction)result.Nodes[3];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4), instruction1.CreateMachineCode());
-            Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_001, registerD: 15, registerB: 14, registerA: 15), instruction2.CreateMachineCode());
-            Assert.Equal(BuildMachineCode(0b000, 0b001, 0b000_100, registerD: 0, registerB: 15, registerA: 3), instruction3.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0), instruction2.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_001, registerD: 15, registerB: 14, registerA: 15), instruction3.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b000, 0b001, 0b000_100, registerD: 0, registerB: 15, registerA: 3), instruction4.CreateMachineCode());
         }
         [Fact]
         public void Instruction_pop()
@@ -72,10 +74,12 @@ namespace Casm.Assembler.Tests
             var instruction1 = (Instruction)result.Nodes[0];
             var instruction2 = (Instruction)result.Nodes[1];
             var instruction3 = (Instruction)result.Nodes[2];
+            var instruction4 = (Instruction)result.Nodes[3];
 
             Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_000, registerD: 14, immediate: 4), instruction1.CreateMachineCode());
-            Assert.Equal(BuildMachineCode(0b000, 0b010, 0b000_011, registerD: 3, registerB: 15, registerA: 0), instruction2.CreateMachineCode());
-            Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_000, registerD: 15, registerB: 14, registerA: 15), instruction3.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b000, 0b000, 0b000_001, registerD: 14, immediate: 0), instruction2.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b000, 0b010, 0b000_011, registerD: 3, registerB: 15, registerA: 0), instruction3.CreateMachineCode());
+            Assert.Equal(BuildMachineCode(0b001, 0b011, 0b000_000, registerD: 15, registerB: 14, registerA: 15), instruction4.CreateMachineCode());
         }
 
         [Fact]

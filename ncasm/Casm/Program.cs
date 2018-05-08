@@ -2,6 +2,8 @@
 using CommandLine;
 using System;
 using System.IO;
+using System.Linq;
+using Casm.Assembler.Behaviors;
 using static System.Console;
 
 namespace Casm
@@ -117,7 +119,46 @@ namespace Casm
 
         private static void RunDisassemble(DisassembleOptions options)
         {
+            if (!File.Exists(options.InputFile))
+            {
+                WriteLine("Error: The file specified by the in argument does not exist.");
+                return;
+            }
 
+            using (var inputStream = File.Open(options.InputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (var reader = new BinaryReader(inputStream))
+            {
+                while (reader.PeekChar() != -1)
+                {
+                    var instruction = reader.ReadUInt32();
+
+                    var functionSelect = (instruction & 0b1110_0000_0000_0000_0000_0000_0000_0000) >> 29;
+                    var dBusSelect = (instruction & 0b0001_1100_0000_0000_0000_0000_0000_0000) >> 26;
+                    var opcode = (instruction & 0b0000_0011_1111_0000_0000_0000_0000_0000) >> 20;
+
+                    var instructionDefinition = InstructionMap.ReversedInstructionDefinitions[(functionSelect, dBusSelect, opcode)];
+
+                    Write(instructionDefinition.Name);
+
+                    var isFirstOperand = true;
+                    foreach (var operand in instructionDefinition.Behaviors.OfType<OperandBehavior>().OrderBy(x => x.OperandPosition))
+                    {
+                        if (isFirstOperand)
+                        {
+                            Write(' ');
+                            isFirstOperand = false;
+                        }
+                        else
+                        {
+                            Write(',');
+                        }
+
+                        Write(operand.GetStringRepresentation(instruction));
+                    }
+
+                    WriteLine();
+                }
+            }
         }
     }
 }

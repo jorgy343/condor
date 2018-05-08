@@ -1,6 +1,4 @@
-﻿using Casm.Antlr;
-
-namespace Casm.Assembler.Behaviors
+﻿namespace Casm.Assembler.Behaviors
 {
     public abstract class InstructionBehavior
     {
