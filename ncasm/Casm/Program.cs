@@ -1,9 +1,9 @@
-﻿using Casm.Assembler;
+﻿using Casm.Base;
 using CommandLine;
 using System;
 using System.IO;
 using System.Linq;
-using Casm.Assembler.Behaviors;
+using Casm.Base.Behaviors;
 using static System.Console;
 
 namespace Casm

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Casm.Assembler\Casm.Assembler.csproj" />
+    <ProjectReference Include="..\Casm.Base\Casm.Base.csproj" />
   </ItemGroup>
 
 </Project>

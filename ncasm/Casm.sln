@@ -5,13 +5,13 @@ VisualStudioVersion = 15.0.27428.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Antlr", "Casm.Antlr\Casm.Antlr.csproj", "{CCEC23C5-1A9E-4741-94F0-72BF5477E476}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Assembler.Tests", "Casm.Assembler.Tests\Casm.Assembler.Tests.csproj", "{985BEC13-C03C-4A88-8CA9-64C9124DD2D0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Base.Tests", "Casm.Base.Tests\Casm.Base.Tests.csproj", "{985BEC13-C03C-4A88-8CA9-64C9124DD2D0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Emulator", "Casm.Emulator\Casm.Emulator.csproj", "{FD6CA086-16C5-421B-9F96-D8A62A27A5C6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm", "Casm\Casm.csproj", "{82E4B885-DFA4-4B1C-87AB-5BE1F5D7A432}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Assembler", "Casm.Assembler\Casm.Assembler.csproj", "{DFE2AFD0-FD1F-4E2C-8E10-2A3227B205CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Casm.Base", "Casm.Base\Casm.Base.csproj", "{DFE2AFD0-FD1F-4E2C-8E10-2A3227B205CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
