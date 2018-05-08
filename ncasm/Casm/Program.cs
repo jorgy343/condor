@@ -125,39 +125,50 @@ namespace Casm
                 return;
             }
 
-            using (var inputStream = File.Open(options.InputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
-            using (var reader = new BinaryReader(inputStream))
+            var outputStream = options.OutputFile != null ? new FileStream(options.OutputFile, FileMode.Create, FileAccess.Write) : OpenStandardOutput();
+            var writer = new StreamWriter(outputStream);
+
+            try
             {
-                while (reader.PeekChar() != -1)
+                using (var inputStream = File.Open(options.InputFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var reader = new BinaryReader(inputStream))
                 {
-                    var instruction = reader.ReadUInt32();
-
-                    var functionSelect = (instruction & 0b1110_0000_0000_0000_0000_0000_0000_0000) >> 29;
-                    var dBusSelect = (instruction & 0b0001_1100_0000_0000_0000_0000_0000_0000) >> 26;
-                    var opcode = (instruction & 0b0000_0011_1111_0000_0000_0000_0000_0000) >> 20;
-
-                    var instructionDefinition = InstructionMap.ReversedInstructionDefinitions[(functionSelect, dBusSelect, opcode)];
-
-                    Write(instructionDefinition.Name);
-
-                    var isFirstOperand = true;
-                    foreach (var operand in instructionDefinition.Behaviors.OfType<OperandBehavior>().OrderBy(x => x.OperandPosition))
+                    while (reader.PeekChar() != -1)
                     {
-                        if (isFirstOperand)
+                        var instruction = reader.ReadUInt32();
+
+                        var functionSelect = (instruction & 0b1110_0000_0000_0000_0000_0000_0000_0000) >> 29;
+                        var dBusSelect = (instruction & 0b0001_1100_0000_0000_0000_0000_0000_0000) >> 26;
+                        var opcode = (instruction & 0b0000_0011_1111_0000_0000_0000_0000_0000) >> 20;
+
+                        var instructionDefinition = InstructionMap.ReversedInstructionDefinitions[(functionSelect, dBusSelect, opcode)];
+
+                        writer.Write(instructionDefinition.Name);
+
+                        var isFirstOperand = true;
+                        foreach (var operand in instructionDefinition.Behaviors.OfType<OperandBehavior>().OrderBy(x => x.OperandPosition))
                         {
-                            Write(' ');
-                            isFirstOperand = false;
-                        }
-                        else
-                        {
-                            Write(',');
+                            if (isFirstOperand)
+                            {
+                                writer.Write(' ');
+                                isFirstOperand = false;
+                            }
+                            else
+                            {
+                                writer.Write(',');
+                            }
+
+                            writer.Write(operand.GetStringRepresentation(instruction));
                         }
 
-                        Write(operand.GetStringRepresentation(instruction));
+                        writer.WriteLine();
                     }
-
-                    WriteLine();
                 }
+            }
+            finally
+            {
+                writer?.Close();
+                outputStream?.Close();
             }
         }
     }
